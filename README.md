@@ -1,39 +1,40 @@
 #include <stdio.h>
 
-// Function declarations
-int add(int a, int b) { return a + b; }
-int subtract(int a, int b) { return a - b; }
-int multiply(int a, int b) { return a * b; }
-int divide(int a, int b) { 
-    if(b != 0) 
-        return a / b; 
-    else {
-        printf("Error! Division by zero.\n");
-        return 0;
-    }
-}
+struct Student {
+    char name[50];
+    int rollNo;
+    float marks[5];
+    float total;
+    float average;
+};
 
 int main() {
-    int choice, a, b, result;
-    
-    // Array of function pointers
-    int (*operation[])(int, int) = {add, subtract, multiply, divide};
+    struct Student s;
+    int i;
 
-    printf("Simple Calculator using Function Pointers\n");
-    printf("1. Add\n2. Subtract\n3. Multiply\n4. Divide\n");
-    printf("Enter your choice (1-4): ");
-    scanf("%d", &choice);
+    // Input student details
+    printf("Enter student name: ");
+    scanf("%s", s.name);
+    printf("Enter roll number: ");
+    scanf("%d", &s.rollNo);
 
-    if(choice < 1 || choice > 4) {
-        printf("Invalid choice!\n");
-        return 0;
+    // Input marks for 5 subjects
+    s.total = 0;
+    for (i = 0; i < 5; i++) {
+        printf("Enter marks for subject %d: ", i + 1);
+        scanf("%f", &s.marks[i]);
+        s.total += s.marks[i];
     }
 
-    printf("Enter two numbers: ");
-    scanf("%d %d", &a, &b);
+    // Calculate average
+    s.average = s.total / 5;
 
-    // Call the chosen function through pointer
-    result = operation[choice - 1](a, b);
-    printf("Result: %d\n", result);
+    // Output result
+    printf("\n--- Student Result ---\n");
+    printf("Name: %s\n", s.name);
+    printf("Roll No: %d\n", s.rollNo);
+    printf("Total Marks: %.2f\n", s.total);
+    printf("Average Marks: %.2f\n", s.average);
 
     return 0;
+}
